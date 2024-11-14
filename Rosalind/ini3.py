@@ -1,0 +1,3 @@
+s="hz8nY6F94AB3BRrosszpHCS7b2PxHUuOMyXqzA7lsaSE6W0ojKK1LGlUwyKMjvaFEnyed8SHxuAYQNK8HRhabdophisXNDTM8dlqNBc1cHbUFLschokaribU7nCKWIV5EmVeHCs3Gcpy0Nu3SWI8kb3NXoaKciDakmi7MqRJbweUAoWNLKxxVWLxG93FE."
+full=s[81:91]+" "+s[110:118]
+#ans: Rhabdophis schokari
