@@ -1,0 +1,2 @@
+- define rules with codon table 
+- use it with if-elif to create letters

@@ -1,0 +1,2 @@
+- for loop for each of the two strings
+- if letters not the same count plus one, else continue
