@@ -26,10 +26,10 @@ def translate_rna_to_peptide(RNA):
             start_translation = True
             peptide=""
         if start_translation:
+            if codon != "Stop":
+                peptide+=code[codon]
             if codon == "Stop":
                 break
-            else:
-                peptide+=code[codon]
             return peptide
 
 # create a reference dictionary with the genetic code
