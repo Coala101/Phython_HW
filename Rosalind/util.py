@@ -5,3 +5,17 @@ def read_input(filepath):
         for line in lines:
             stripped.append(line.strip())
     return stripped
+
+def exfasta(filepath):
+    from util import read_input
+    sequences = {}
+    current_id = ""
+    for line in read_input(filepath):
+        if line[0] == ">":
+            header = line
+            current_id = header[1:]
+            sequences[current_id] = ""
+        else:
+            sequence = line
+            sequences[current_id] += sequence
+    return sequences

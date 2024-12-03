@@ -9,13 +9,21 @@ def complement(letter):
         return "A"
     else:
         return "N"
-    
-Dna=""
-Dna_compl=""
-for nuc in Dna:
-    Dna_compl+=complement(nuc)
 
-Dna_compl[::-1]
+def complement_sequence(seq):    
+    Dna_compl=""
+    for nuc in seq:
+        Dna_compl+=complement(nuc)
+    return Dna_compl
+
+def reverse_complement(seq):
+    #print(seq)
+    result = complement_sequence(seq[::-1])
+    #print(result)
+    return result
+
+
+#Dna_compl[::-1]
 
 #for letter in Dna:
 #    if letter=="A":

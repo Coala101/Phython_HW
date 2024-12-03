@@ -4,38 +4,6 @@
 
 from util import read_input
 
-def complement(letter):
-    if letter=="A":
-        return "T"
-    elif letter=="C":
-        return "G"
-    elif letter=="G":
-        return "C"
-    elif letter=="T":
-        return "A"
-    else:
-        return "N"
-    
-def translate_rna_to_peptide(RNA):
-    peptide=""
-    start_translation = False
-    for amino in range(0, len(RNA), 3):
-        codon= RNA[amino:amino+3]
-        
-        if codon=="AUG":
-            start_translation = True
-            peptide=""
-        if start_translation:
-            if codon != "Stop":
-                peptide+=code[codon]
-            if codon == "Stop":
-                break
-            return peptide
-
-# create a reference dictionary with the genetic code
-# read the RNA in triplets
-# map triplet to aminoacid
-
 code = {
     "UUU": "F",      "CUU": "L",      "AUU": "I",      "GUU": "V",
     "UUC": "F",      "CUC": "L",      "AUC": "I",      "GUC": "V",
@@ -55,11 +23,73 @@ code = {
     "UGG": "W",      "CGG": "R",      "AGG": "R",      "GGG": "G"
 }
 
-#line_list = read_input("../rosalind_data/rosalind_prot.txt")
-#rna = line_list[0]
+def complement(letter):
+    if letter=="A":
+        return "T"
+    elif letter=="C":
+        return "G"
+    elif letter=="G":
+        return "C"
+    elif letter=="T":
+        return "A"
+    else:
+        return "N"
 
-# read the rna in triplets:
-fasta = read_input('../rosalind_data/test.txt')
+def find_orf(RNA):
+    orf=[]
+    for amino in range(len(RNA)-2):
+        if RNA[amino:amino+3]=="AUG":
+            orf.append(RNA[amino:])
+    return orf
+
+def find_orfs(rna, starts):
+    """find all open reading frames in an RNA sequence"""
+    orfs = []
+    for start in starts:
+        orf = ""
+        for i in range(start, len(rna), 3):
+            codon = rna[i:i+3]
+            orf += codon
+            if len(codon) < 3:
+                break
+            if code[codon] == "Stop":
+                orfs.append(orf)
+    return orfs
+
+def translate_rna_to_peptide(RNA):
+    peptide=""
+   #start_translation = False
+    for amino in range(0, len(RNA), 3):
+        codon= RNA[amino:amino+3]
+        aminoacid=code[codon]
+       #if codon=="AUG":
+           #start_translation = True
+           #peptide=""
+       #if start_translation:
+        if aminoacid != "Stop":
+            peptide+=code[codon]
+        if aminoacid == "Stop":
+            return peptide
+        if len(codon)<3:
+            break
+
+# create a reference dictionary with the genetic code
+# read the RNA in triplets
+# map triplet to aminoacid
+
+# line_list = read_input("../rosalind_data/rosalind_prot.txt")
+# rna = line_list[0]
+
+#read rna in triplets:
+fasta = read_input('../rosalind_data/rosalind_orf.txt')
+
+
+
+# rna_forward
+# rna_backward
+# forward_orfs = ???
+# backward_orfs = ???
+# for orf in all orfs: translate
 
 sequences = {}
 current_id = ""
@@ -90,21 +120,30 @@ for id, dna in sequences.items():
         else:
             Rna_compl+=letter
 
-peptide=translate_rna_to_peptide(Rna)
-peptide_compl=translate_rna_to_peptide(Rna_compl)
-
-print(peptide)
-print(peptide_compl)
+Rna_orf=find_orf(Rna)
+Rna_orf_compl=find_orf(Rna_compl)
+peptide=[]
+peptide_compl=[]
+for dna_transcription in Rna_orf:
+    pep=translate_rna_to_peptide(dna_transcription)
+    peptide.append(pep)
+for dna_transciption_compl in Rna_orf_compl:
+    pep_compl=translate_rna_to_peptide(dna_transciption_compl)
+    peptide.append(pep_compl)
+for pep in peptide:
+    print(pep)
+for pep in peptide_compl:
+    print(pep)
 
 
 # for start in range(0, len(Rna), 3):
 #    codon = Rna[start:start+3]
 #    aminoacid = code[codon]
 #    if aminoacid == "AUG":
-    #    peptide = "M"
+#        peptide = "M"
 #    elif aminoacid == "Stop":
-    #    break
+#        break
 #    else:
-    #    peptide += aminoacid
-  ## print(codon, "corresponds to", aminoacid)
+#        peptide += aminoacid
+#   # print(codon, "corresponds to", aminoacid)
 #    print(peptide)

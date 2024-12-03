@@ -31,13 +31,15 @@ line_list = read_input("../rosalind_data/rosalind_prot.txt")
 rna = line_list[0]
 
 # read the rna in triplets:
-peptide = ""
-for start in range(0, len(rna), 3):
-    codon = rna[start:start+3]
-    aminoacid = code[codon]
-    if aminoacid == "Stop":
-        break
-    peptide += aminoacid
+def translate(rna):
+    peptide = ""
+    for start in range(0, len(rna), 3):
+        codon = rna[start:start+3]
+        aminoacid = code[codon]
+        if aminoacid == "Stop":
+         break
+        peptide += aminoacid
+    return peptide
     # print(codon, "corresponds to", aminoacid)
 
-print(peptide)
+#print(peptide)
