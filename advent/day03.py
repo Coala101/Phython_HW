@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-#s="xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(8mul(11,8)mul(8,5))"
+#s="don't()do()do()xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
 from util import read_input
 
 def mul(n1,n2):
@@ -11,16 +11,40 @@ def mul(n1,n2):
 s_raw=read_input("../advent_data/day03.txt")
 
 s=""
-for line in s_raw:
-    s+=line
+for sline in s_raw:
+    s+=sline
 
-s1=s.split("mul")
+ahh=s.split("don't()")
+#print(ahh)
+waa=(len(ahh))
+#print(waa)
+z=ahh[0]
+#print(ahh)
+
+for line in ahh[1:]:
+    ehh = line.split("do()")
+    if len(ehh) > 1:
+        for part in ehh[1:]:
+            z += part
+
+#print(z)
+    
+# for line in ahh:
+#     if line.count("do()")==True:
+#         ehh=line.split("do()")
+#         #print(ehh)
+#         uhh=ehh[1]
+# z+=uhh
+
+s1=z.split("mul")
 # for fun in range(len(s)):
 #     count=s[fun:fun+3]
-#print(s)
+#print(s1)
 s2=[]
 for stuff in s1:
+    #print(stuff)
     if stuff[0]=="(":
+        #print(stuff)
         s2.append(stuff.split(")"))
 #print(s2)
 
@@ -60,7 +84,7 @@ for thing in mama:
             lst.append(lolo)
 
 #print(lst)
-print(len(lst))
+#print(len(lst))
 result=0
 #print(lst)
 for number in range(0, len(lst)-1, 2):
