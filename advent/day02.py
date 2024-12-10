@@ -6,12 +6,15 @@ reports_raw=read_input("../advent_data/day02.txt")
 reports=[]
 for line in reports_raw:
     for number in line:
-        tmp = line.split(' ')
+        stripped_line=line.strip()
+        tmp = stripped_line.split()
         tem=[]
         for num in tmp:
-            int(num)
-            tem.append(num)
-        reports.append(tem)
+            tem.append(int(num))
+    reports.append(tem)
+
+#print(reports)
+
 #print(reports)
 # reports=[
 # [7,6,4,2,1],
@@ -49,15 +52,34 @@ def descending(l):
             return False
     return True 
 
+def is_safe(l):
+    for i in l:
+    # if no_fluct(l)==False:
+    #     continue
+        if no_fluct(l)==True:
+            if ascending(l)==True or descending(l)==True:
+                return True
+    return False
+
+def is_safe_damp(l):
+    for i in range(len(l)):
+        new_report=l[:i]+l[i+1:]
+        if is_safe(new_report):
+            return True
+    return False
+
 safe=0
 for l in reports:
     # if no_fluct(l)==False:
     #     continue
-    if no_fluct(l)==True:
-        if ascending(l)==True or descending(l)==True:
-            safe+=1
+    # if no_fluct(l)==True:
+    #     if ascending(l)==True or descending(l)==True:
+    #         safe+=1
+    if is_safe_damp(l)==True:
+        safe+=1
 
 print(safe)
+
 
 # print(no_fluct(t))
 # print(ascending(t))
