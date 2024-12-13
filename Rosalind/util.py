@@ -6,7 +6,7 @@ def read_input(filepath):
             stripped.append(line.strip())
     return stripped
 
-def exfasta(filepath):
+def read_fasta(filepath):
     from util import read_input
     sequences = {}
     current_id = ""
